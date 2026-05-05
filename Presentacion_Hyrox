@@ -1,0 +1,546 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HYROX: El Storytelling de una Revolución Global</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Oswald:wght@700&display=swap');
+        
+        :root {
+            --hyrox-yellow: #FACC15;
+            --hyrox-black: #09090B;
+            --hyrox-zinc: #27272A;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--hyrox-black);
+            color: white;
+            overflow: hidden;
+        }
+
+        .oswald { font-family: 'Oswald', sans-serif; }
+
+        .slide {
+            display: none;
+            height: 100vh;
+            width: 100vw;
+            padding: 2rem;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+
+        .neon-glow {
+            text-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+        }
+
+        .glass-card {
+            background: rgba(39, 39, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(250, 204, 21, 0.2);
+            border-radius: 1rem;
+        }
+
+        .reveal-btn {
+            background-color: var(--hyrox-yellow);
+            color: black;
+            padding: 0.75rem 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            border-radius: 0.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .reveal-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--hyrox-yellow);
+        }
+
+        .hidden-content {
+            display: none;
+            opacity: 0;
+        }
+
+        .visible-content {
+            display: block;
+            opacity: 1;
+            animation: fadeIn 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .venn-circle {
+            mix-blend-mode: screen;
+            transition: all 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Chosen Palette: Vibrant Neon (Yellow #FACC15, Black #09090B) -->
+    <!-- Application Structure Plan: Una SPA de 10 secciones navegables. Diseñada como una herramienta de enseñanza donde el contenido se revela a petición del profesor para controlar el flujo del "storytelling". Cada slide tiene un propósito específico: Pregunta de apertura, Análisis de Ecosistema, Datos de Crecimiento, Estrategia, Logística, Alianzas, Modelo B2B, Marketing, El Futuro Olímpico y Conclusiones. -->
+    <!-- Visualization & Content Choices: 
+         - Diagrama de Venn dinámico (Canvas) para el "Sweet Spot".
+         - Gráfico de Crecimiento (Chart.js) para visualizar el salto de 650 a 1M atletas.
+         - Cards de red social para ilustrar la viralidad.
+         - Gráficos de comparación de costos logísticos vs percepción de marca.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Navigation Overlay -->
+    <div class="fixed bottom-8 right-8 z-50 flex space-x-4">
+        <button id="prevBtn" class="bg-zinc-800 p-4 rounded-full border border-zinc-700 hover:bg-zinc-700 transition" onclick="prevSlide()">
+            <span class="text-xl">←</span>
+        </button>
+        <button id="nextBtn" class="bg-zinc-800 p-4 rounded-full border border-zinc-700 hover:bg-zinc-700 transition" onclick="nextSlide()">
+            <span class="text-xl">→</span>
+        </button>
+    </div>
+
+    <div class="fixed top-8 left-8 z-50">
+        <div class="oswald italic text-2xl tracking-tighter">
+            <span class="text-yellow-400">HYROX</span> STORYTELLING
+        </div>
+    </div>
+
+    <!-- SECCIÓN 1: APERTURA -->
+    <div id="slide-1" class="slide active">
+        <div class="max-w-4xl text-center px-4">
+            <h1 class="text-4xl md:text-6xl font-black oswald italic uppercase mb-12 leading-tight">
+                ¿Por qué es importante para una organización como <span class="text-yellow-400">HYROX</span> considerar el tema de la <span class="underline decoration-yellow-400">globalización</span>?
+            </h1>
+            <p class="text-zinc-500 font-bold uppercase tracking-widest text-sm">Debate abierto con los alumnos</p>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 2: ECOSISTEMA -->
+    <div id="slide-2" class="slide">
+        <div class="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-zinc-400 font-bold uppercase tracking-widest text-xs mb-2">Ecosistema</h2>
+                <h3 class="text-4xl font-black oswald italic uppercase mb-6">Deportes de Participación Masiva</h3>
+                <p class="text-zinc-300 mb-8 text-lg">
+                    HYROX no inventó el ejercicio; redefinió la relación entre el gimnasio y la competición atlética.
+                </p>
+                <div class="glass-card p-6 border-l-4 border-yellow-400">
+                    <p class="italic text-yellow-400 font-bold text-xl mb-2">"Fitness Racing"</p>
+                    <p class="text-sm text-zinc-300">El punto de unión donde la fuerza funcional se encuentra con la resistencia pura.</p>
+                </div>
+            </div>
+            <div class="flex justify-center">
+                <canvas id="vennCanvas" width="500" height="400" class="max-w-full"></canvas>
+            </div>
+        </div>
+        <div class="mt-8 flex space-x-6 text-center">
+            <div class="glass-card p-4 flex-1">
+                <p class="text-3xl font-black text-yellow-400">33</p>
+                <p class="text-xs uppercase font-bold text-zinc-500">Edad Promedio</p>
+            </div>
+            <div class="glass-card p-4 flex-1">
+                <p class="text-3xl font-black text-yellow-400">50%</p>
+                <p class="text-xs uppercase font-bold text-zinc-500">Mujeres</p>
+            </div>
+            <div class="glass-card p-4 flex-1">
+                <p class="text-3xl font-black text-yellow-400">ALTA</p>
+                <p class="text-xs uppercase font-bold text-zinc-500">Disposición al Gasto</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 3: EXPLOSIÓN DE DATOS -->
+    <div id="slide-3" class="slide">
+        <div class="max-w-4xl w-full text-center">
+            <h2 class="text-4xl font-black oswald italic uppercase mb-8">El Crecimiento Exponencial</h2>
+            <div class="chart-container h-80 mb-8">
+                <canvas id="growthChart"></canvas>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="glass-card p-6">
+                    <p class="text-zinc-400 uppercase text-xs font-bold mb-1">Gimnasios Afiliados</p>
+                    <p class="text-5xl font-black text-yellow-400">10,000+</p>
+                </div>
+                <div class="glass-card p-6">
+                    <p class="text-zinc-400 uppercase text-xs font-bold mb-1">Proyección 25/26</p>
+                    <p class="text-5xl font-black text-yellow-400">1M+</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 4: REFLEXIÓN -->
+    <div id="slide-4" class="slide">
+        <div class="max-w-4xl text-center">
+            <h1 class="text-4xl md:text-6xl font-black oswald italic uppercase mb-12">
+                ¿Qué hizo <span class="text-yellow-400">HYROX</span> para tener tanto éxito en tan poco tiempo?
+            </h1>
+            <p class="text-zinc-500 font-bold uppercase tracking-widest text-sm">Hipótesis de los alumnos</p>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 5: ESTRATEGIA -->
+    <div id="slide-5" class="slide">
+        <div class="max-w-6xl w-full px-4">
+            <h2 class="text-4xl font-black oswald italic uppercase mb-12 border-b border-zinc-800 pb-4">Estrategia: Estandarización Absoluta</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-6">
+                    <h3 class="text-yellow-400 font-black text-xl mb-4 italic uppercase">El Producto</h3>
+                    <p class="text-zinc-300 text-sm leading-relaxed">8km de carrera + 8 ejercicios funcionales. Un formato inmutable que permite un <span class="font-bold text-white">Ranking Mundial Único</span>.</p>
+                </div>
+                <div class="glass-card p-6">
+                    <h3 class="text-yellow-400 font-black text-xl mb-4 italic uppercase">Disrupción CrossFit</h3>
+                    <ul class="text-zinc-300 text-sm space-y-2">
+                        <li>• Baja complejidad técnica</li>
+                        <li>• Inclusividad total (Dobles/Relevos)</li>
+                        <li>• Estética de festival</li>
+                    </ul>
+                </div>
+                <div class="glass-card p-6">
+                    <h3 class="text-yellow-400 font-black text-xl mb-4 italic uppercase">Economic Moat</h3>
+                    <p class="text-zinc-300 text-sm leading-relaxed">La creación de sus propias barreras mediante un ecosistema de datos y una experiencia de usuario irreplicable.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 6: LOGÍSTICA -->
+    <div id="slide-6" class="slide">
+        <div class="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="glass-card p-10 relative overflow-hidden">
+                <div class="absolute -right-8 -top-8 text-9xl font-black text-zinc-800 opacity-20">TRUCK</div>
+                <h2 class="text-4xl font-black oswald italic uppercase mb-6">Ejecución Logística</h2>
+                <div class="space-y-6">
+                    <div class="flex items-center space-x-4">
+                        <span class="text-4xl">🚚</span>
+                        <p class="font-bold">6 Roadshows globales</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-4xl">⏱️</span>
+                        <p class="font-bold">Montaje en cuestión de horas</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-4xl">📦</span>
+                        <p class="font-bold">8 camiones por unidad móvil</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-2xl font-black oswald uppercase mb-6 text-yellow-400">Eficiencia de Capital</h3>
+                <div class="chart-container h-64">
+                    <canvas id="costChart"></canvas>
+                </div>
+                <p class="text-xs text-zinc-500 mt-4 text-center">Inversión Real vs Percepción de Valor de Marca</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 7: ALIANZAS -->
+    <div id="slide-7" class="slide">
+        <div class="max-w-5xl w-full">
+            <h2 class="text-4xl font-black oswald italic uppercase mb-12 text-center">Alianzas Estratégicas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="glass-card p-8 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-black oswald uppercase text-yellow-400 mb-4">Infront Sports & Media</h3>
+                        <p class="text-zinc-300 text-sm leading-relaxed mb-6">
+                            El gigante detrás de World Triathlon Corporation (IRONMAN) y FIFA. Su rol: profesionalizar derechos de TV y patrocinios globales.
+                        </p>
+                    </div>
+                    <div class="flex space-x-4 opacity-50 grayscale hover:grayscale-0 transition">
+                        <span class="font-black text-xl italic uppercase">Infront</span>
+                        <span class="font-black text-xl italic uppercase">Wanda Group</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="glass-card p-4 flex items-center space-x-4">
+                        <div class="w-12 h-12 flex items-center justify-center font-black text-black bg-white rounded">P</div>
+                        <div>
+                            <p class="font-bold uppercase text-xs text-yellow-400">PUMA</p>
+                            <p class="text-xs text-zinc-400">Tecnología NITRO exclusiva</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-4 flex items-center space-x-4">
+                        <div class="w-12 h-12 flex items-center justify-center font-black text-black bg-white rounded">C</div>
+                        <div>
+                            <p class="font-bold uppercase text-xs text-yellow-400">CONCEPT2</p>
+                            <p class="text-xs text-zinc-400">Estandarización de máquinas</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-4 flex items-center space-x-4">
+                        <div class="w-12 h-12 flex items-center justify-center font-black text-black bg-white rounded">R</div>
+                        <div>
+                            <p class="font-bold uppercase text-xs text-yellow-400">RED BULL</p>
+                            <p class="text-xs text-zinc-400">Exposure y Awareness global</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 8: HYROX 365 -->
+    <div id="slide-8" class="slide">
+        <div class="max-w-4xl w-full text-center">
+            <h2 class="text-5xl font-black oswald italic uppercase mb-6">HYROX 365</h2>
+            <p class="text-2xl text-yellow-400 font-bold mb-12">"No competir sino aliarse"</p>
+            <div class="flex flex-col md:flex-row gap-8 justify-center items-stretch">
+                <div class="glass-card p-8 flex-1 border-t-4 border-yellow-400">
+                    <h3 class="font-black text-xl mb-4">Win para HYROX</h3>
+                    <p class="text-sm text-zinc-400 italic">Canales de distribución masiva sin inversión física.</p>
+                </div>
+                <div class="glass-card p-8 flex-1 border-t-4 border-white">
+                    <h3 class="font-black text-xl mb-4">Win para el GYM</h3>
+                    <p class="text-sm text-zinc-400 italic">Retención de clientes y diferenciación de marca.</p>
+                </div>
+                <div class="glass-card p-8 flex-1 border-t-4 border-yellow-400">
+                    <h3 class="font-black text-xl mb-4">Win para el Atleta</h3>
+                    <p class="text-sm text-zinc-400 italic">Comunidad y entrenamiento con propósito.</p>
+                </div>
+            </div>
+            <p class="mt-12 text-3xl font-black oswald uppercase">90 - 130 EUR <span class="text-zinc-500 font-normal text-sm">mensuales por afiliación</span></p>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 9: VIRALIDAD -->
+    <div id="slide-9" class="slide">
+        <div class="max-w-6xl w-full px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-black oswald italic uppercase mb-6">Ingeniería de la Viralidad</h2>
+                    <p class="text-zinc-300 mb-8">
+                        HYROX diseñó sus eventos para Instagram y TikTok. Luces neón, estética industrial y la validación social como motor.
+                    </p>
+                    <div class="glass-card p-6 mb-4">
+                        <p class="text-yellow-400 font-black text-4xl mb-1">70%</p>
+                        <p class="text-sm font-bold uppercase text-zinc-500">De los atletas compran fotos (Sportograf)</p>
+                    </div>
+                    <p class="text-sm italic text-zinc-500">
+                        "Entreno para un Hyrox", no "Entreno para un Fitness Race".
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="aspect-square glass-card flex flex-col justify-end p-4 border-b-4 border-yellow-400">
+                        <p class="font-black text-xs">@AtletaHibrido</p>
+                        <p class="text-[10px] opacity-50">#HyroxWorld</p>
+                    </div>
+                    <div class="aspect-square glass-card flex flex-col justify-end p-4 border-b-4 border-yellow-400">
+                        <p class="font-black text-xs">@FitnessRacing</p>
+                        <p class="text-[10px] opacity-50">#MyPB</p>
+                    </div>
+                    <div class="aspect-square glass-card flex flex-col justify-end p-4 border-b-4 border-yellow-400">
+                        <p class="font-black text-xs">@GymAffiliate</p>
+                        <p class="text-[10px] opacity-50">#Hyrox365</p>
+                    </div>
+                    <div class="aspect-square glass-card flex flex-col justify-end p-4 border-b-4 border-yellow-400">
+                        <p class="font-black text-xs">@WorldRanking</p>
+                        <p class="text-[10px] opacity-50">#GlobalSport</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 10: EL FUTURO -->
+    <div id="slide-10" class="slide">
+        <div class="max-w-4xl text-center">
+            <h2 class="text-zinc-400 font-bold uppercase tracking-widest text-xs mb-2">Hacia Brisbane 2032</h2>
+            <h3 class="text-5xl font-black oswald italic uppercase mb-12">El Sueño Olímpico</h3>
+            <div class="glass-card p-10 text-left space-y-6">
+                <p class="text-xl font-bold text-yellow-400 italic">¿Cómo se beneficia la marca?</p>
+                <p class="text-zinc-300">Convertir una marca privada en un "bien público deportivo" requiere equilibrar el control comercial con la apertura internacional.</p>
+                <div class="p-4 bg-zinc-900 rounded border-l-4 border-yellow-400">
+                    <p class="text-sm font-bold uppercase mb-2">Debate:</p>
+                    <p class="text-sm italic">¿Puede un deporte ser global si le pertenece a una sola empresa?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 11: TAKEAWAYS -->
+    <div id="slide-11" class="slide">
+        <div class="max-w-5xl w-full">
+            <h2 class="text-5xl font-black oswald italic uppercase mb-12 text-center text-yellow-400">Global Takeaways</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-8">
+                    <span class="text-4xl block mb-4">🌍</span>
+                    <h3 class="font-black mb-4 uppercase">Estandarización</h3>
+                    <p class="text-zinc-400 text-sm">El producto es idéntico en todo el mundo. La confianza global nace de la predictibilidad.</p>
+                </div>
+                <div class="glass-card p-8">
+                    <span class="text-4xl block mb-4">⚡</span>
+                    <h3 class="font-black mb-4 uppercase">Asset-Light</h3>
+                    <p class="text-zinc-400 text-sm">Escalabilidad masiva utilizando infraestructura de terceros (Gimnasios y Centros de Convenciones).</p>
+                </div>
+                <div class="glass-card p-8">
+                    <span class="text-4xl block mb-4">📈</span>
+                    <h3 class="font-black mb-4 uppercase">Data & Tribu</h3>
+                    <p class="text-zinc-400 text-sm">El ranking mundial como moneda de cambio y la validación social como motor viral.</p>
+                </div>
+            </div>
+            <div class="mt-16 text-center">
+                <p class="oswald uppercase tracking-widest text-zinc-500 italic">HYROX: The Sweaty Economy of Globalization</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Navigation -->
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 11;
+
+        function showSlide(index) {
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            document.getElementById(`slide-${index}`).classList.add('active');
+            
+            // Animaciones específicas al cargar slides
+            if(index === 2) drawVenn();
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        // --- VISUALIZACIONES ---
+
+        // 1. Venn Diagram
+        function drawVenn() {
+            const canvas = document.getElementById('vennCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0,0,500,400);
+
+            // Circle A
+            ctx.globalAlpha = 0.6;
+            ctx.fillStyle = '#27272A';
+            ctx.beginPath();
+            ctx.arc(200, 200, 140, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Circle B
+            ctx.fillStyle = '#FACC15';
+            ctx.beginPath();
+            ctx.arc(300, 200, 140, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.globalAlpha = 1.0;
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 12px Inter';
+            ctx.fillText('ENTRENAMIENTO GIMNASIO', 60, 200);
+            ctx.fillText('COMPETICIÓN ATLÉTICA', 290, 200);
+
+            ctx.fillStyle = 'black';
+            ctx.font = '900 16px Inter';
+            ctx.fillText('FITNESS RACING', 195, 205);
+        }
+
+        // 2. Growth Chart (Chart.js)
+        const initCharts = () => {
+            const ctxGrowth = document.getElementById('growthChart').getContext('2d');
+            new Chart(ctxGrowth, {
+                type: 'line',
+                data: {
+                    labels: ['2018', '2019', '2021', '2023', '2025/26'],
+                    datasets: [{
+                        label: 'Número de Atletas',
+                        data: [650, 2000, 10000, 500000, 1000000],
+                        borderColor: '#FACC15',
+                        backgroundColor: 'rgba(250, 204, 21, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 4,
+                        pointBackgroundColor: 'white'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { display: false },
+                        x: { grid: { display: false }, ticks: { color: '#71717A' } }
+                    }
+                }
+            });
+
+            // 3. Cost vs Perception Chart
+            const ctxCost = document.getElementById('costChart').getContext('2d');
+            new Chart(ctxCost, {
+                type: 'bar',
+                data: {
+                    labels: [['Inversión', 'Real'], ['Percepción', 'de Valor']],
+                    datasets: [{
+                        data: [200000, 2000000],
+                        backgroundColor: ['#27272A', '#FACC15'],
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ' €' + context.parsed.x.toLocaleString();
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { display: false },
+                        y: { 
+                            grid: { display: false }, 
+                            ticks: { color: 'white', font: { weight: 'bold' } } 
+                        }
+                    }
+                }
+            });
+        };
+
+        window.onload = initCharts;
+
+        // Key listeners for classroom presentation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+
+</body>
+</html>
+
+```
