@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HYROX | Storytelling Estratégico UP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -22,15 +22,17 @@
             color: white;
             overflow: hidden;
             margin: 0;
+            height: 100vh;
+            height: 100dvh;
         }
 
         .hyrox-font { font-family: 'Big Shoulders Display', sans-serif; }
 
         .slide {
             display: none;
-            height: 100vh;
+            height: 100%;
             width: 100vw;
-            padding: 4rem;
+            padding: 1.5rem;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -40,18 +42,17 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-color: #1a1a1a; /* Color de respaldo gris oscuro */
         }
 
-        /* Capa de contraste ajustada para mayor visibilidad de la foto */
+        @media (min-width: 768px) {
+            .slide { padding: 4rem; }
+        }
+
         .slide::before {
             content: "";
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%);
             z-index: 1;
         }
 
@@ -63,19 +64,23 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            max-height: 85vh;
+            overflow-y: auto; /* Permite scroll interno si el contenido es mucho en móvil */
+            scrollbar-width: none;
         }
+        .slide-content::-webkit-scrollbar { display: none; }
 
-        .slide.active { display: flex; animation: fadeIn 0.8s ease-out; }
+        .slide.active { display: flex; animation: fadeIn 0.6s ease-out; }
 
         .reveal-content {
             display: none;
             width: 100%;
-            margin-top: 2rem;
-            animation: slideUp 0.6s ease-out forwards;
+            margin-top: 1.5rem;
+            animation: slideUp 0.5s ease-out forwards;
         }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(40px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -83,454 +88,455 @@
             background: transparent;
             border: 2px solid var(--hyrox-yellow);
             color: var(--hyrox-yellow);
-            padding: 1rem 2.5rem;
+            padding: 0.8rem 2rem;
             font-family: 'Big Shoulders Display';
-            font-size: 1.5rem;
-            letter-spacing: 3px;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
             cursor: pointer;
             transition: all 0.3s;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
+            text-transform: uppercase;
         }
 
         .btn-reveal:hover {
             background: var(--hyrox-yellow);
             color: black;
-            box-shadow: 0 0 30px rgba(250, 204, 21, 0.4);
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.4);
         }
 
         .glass-panel {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(15px);
             border-radius: 4px;
-            padding: 2rem;
+            padding: 1.5rem;
+            width: 100%;
         }
 
+        /* Timeline responsiva mejorada */
         .timeline-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
+            gap: 5px;
             width: 100%;
         }
 
         .year-btn {
             background: #1e1e1e;
             border: 1px solid #333;
-            padding: 0.8rem;
+            padding: 0.5rem;
             font-family: 'Big Shoulders Display';
-            font-size: 1.5rem;
+            font-size: 1rem;
             color: #777;
             cursor: pointer;
             transition: all 0.3s;
+        }
+
+        @media (min-width: 768px) {
+            .year-btn { font-size: 1.5rem; padding: 0.8rem; }
+            .timeline-grid { gap: 10px; }
         }
 
         .year-btn:hover, .year-btn.active {
             background: var(--hyrox-yellow);
             color: black;
             border-color: var(--hyrox-yellow);
-            transform: translateY(-3px);
         }
 
+        /* Ecosistema adaptable */
         .intersection-graph {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             position: relative;
-            height: 300px;
             width: 100%;
+            gap: 1rem;
         }
 
         .circle-node {
-            width: 250px;
-            height: 250px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Big Shoulders Display';
-            font-size: 1.4rem;
+            font-size: 1rem;
             text-align: center;
-            padding: 20px;
+            padding: 15px;
             border: 2px solid rgba(255,255,255,0.1);
-            position: absolute;
+            background: rgba(30, 30, 30, 0.85);
             transition: all 0.5s;
         }
 
-        .node-left { left: 15%; background: rgba(30, 30, 30, 0.85); z-index: 1; }
-        .node-right { right: 15%; background: rgba(30, 30, 30, 0.85); z-index: 1; }
+        @media (min-width: 768px) {
+            .intersection-graph { height: 350px; flex-direction: row; }
+            .circle-node { width: 250px; height: 250px; position: absolute; font-size: 1.4rem; }
+            .node-left { left: 10%; }
+            .node-right { right: 10%; }
+            .node-center { font-size: 2rem; position: relative; z-index: 5; }
+        }
+
         .node-center { 
             background: var(--hyrox-yellow); 
             color: black; 
-            z-index: 5; 
             border: none;
-            box-shadow: 0 0 50px rgba(250, 204, 21, 0.5);
-            font-size: 2rem;
+            box-shadow: 0 0 50px rgba(250, 204, 21, 0.4);
             font-weight: 900;
         }
 
         .brand-logo {
             background: white;
             color: black;
-            padding: 1rem 1.5rem;
+            padding: 0.75rem 1rem;
             font-family: 'Big Shoulders Display';
             font-weight: 900;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             text-transform: uppercase;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 130px;
+            min-width: 100px;
         }
 
         .logo-infront { border-bottom: 5px solid #003366; }
         .logo-puma { background: black; color: white; border: 1px solid white; }
-        .logo-concept { background: #cfcfcf; }
         .logo-redbull { background: #001d5d; color: white; border-right: 5px solid #FFCC00; }
     </style>
 </head>
 <body>
 
-    <!-- UI Overlay Header -->
-    <div class="fixed top-8 left-10 z-50">
-        <div class="hyrox-font text-3xl font-black italic tracking-tighter">
+    <!-- Header Fijo -->
+    <div class="fixed top-4 left-4 md:top-8 md:left-10 z-[100]">
+        <div class="hyrox-font text-2xl md:text-3xl font-black italic tracking-tighter">
             <span class="text-white">HYROX</span>
         </div>
     </div>
 
-    <!-- Navegación Botones -->
-    <div class="fixed bottom-10 right-10 z-50 flex gap-4">
-        <button onclick="prevSlide()" class="p-3 border border-zinc-700 hover:bg-white hover:text-black transition text-xs font-bold tracking-widest">ANTERIOR</button>
-        <button onclick="nextSlide()" class="p-3 border border-zinc-700 hover:bg-white hover:text-black transition text-xs font-bold tracking-widest">SIGUIENTE</button>
+    <!-- Navegación -->
+    <div class="fixed bottom-4 right-4 md:bottom-10 md:right-10 z-[100] flex gap-2">
+        <button onclick="prevSlide()" class="p-3 border border-zinc-700 bg-black/60 hover:bg-white hover:text-black transition text-[10px] font-bold tracking-widest uppercase">ANT.</button>
+        <button onclick="nextSlide()" class="p-3 border border-zinc-700 bg-black/60 hover:bg-white hover:text-black transition text-[10px] font-bold tracking-widest uppercase">SIG.</button>
     </div>
 
-    <!-- 0: PORTADA -->
-    <div id="slide-0" class="slide active" style="background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070&auto=format&fit=crop')">
-        <div class="slide-content text-center">
-            <div class="mb-10 opacity-70">
-                <h4 class="text-xl font-light tracking-[0.4em] uppercase mb-2 text-zinc-300">Globalización de Negocios</h4>
-                <p class="text-sm font-bold tracking-widest uppercase">Facultad de Empresariales</p>
-                <p class="text-sm tracking-widest uppercase mt-1">Universidad Panamericana</p>
-            </div>
-            <h1 class="hyrox-font text-8xl md:text-[11rem] font-black italic uppercase text-yellow-400 leading-none mb-6">HYROX</h1>
-            <p class="text-2xl font-light tracking-widest uppercase text-white mb-16 italic tracking-[0.2em]">Mayo 2026 | Caso de Estudio</p>
-            <div class="pt-8 border-t border-white/20 inline-block px-12">
-                <div class="flex items-center gap-4">
-                    <div class="w-2 h-2 bg-yellow-400"></div>
-                    <p class="text-lg font-bold uppercase tracking-widest">Inicia Storytelling</p>
+    <div class="presentation-container">
+        
+        <!-- 0: PORTADA -->
+        <div id="slide-0" class="slide active" style="background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070&auto=format&fit=crop')">
+            <div class="slide-content text-center">
+                <div class="mb-6 opacity-70">
+                    <h4 class="text-xs md:text-xl font-light tracking-[0.3em] uppercase mb-1 text-zinc-300">Globalización de Negocios</h4>
+                    <p class="text-[10px] md:text-sm font-bold tracking-widest uppercase">Universidad Panamericana</p>
+                </div>
+                <h1 class="hyrox-font text-6xl md:text-[11rem] font-black italic uppercase text-yellow-400 leading-none mb-4">HYROX</h1>
+                <p class="text-lg md:text-2xl font-light tracking-widest uppercase text-white mb-10 italic">Caso de Estudio | Mayo 2026</p>
+                <div class="pt-6 border-t border-white/20 inline-block px-8">
+                    <p class="text-xs md:text-lg font-bold uppercase tracking-widest">Inicia Storytelling</p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- 1: GLOBALIZACIÓN -->
-    <div id="slide-1" class="slide" style="background-image: url('https://images.unsplash.com/photo-1517963879433-6ad2b056d712?q=80&w=2070&auto=format&fit=crop')">
-        <div class="slide-content text-center">
-            <h1 class="hyrox-font text-6xl md:text-8xl font-black italic uppercase leading-tight">
-                ¿Por qué es importante para <span class="text-yellow-400 underline decoration-4">HYROX</span> considerar el tema de la globalización?
-            </h1>
-            <p class="mt-12 text-zinc-500 uppercase tracking-[0.6em] text-sm font-bold">Debate Abierto</p>
-        </div>
-    </div>
-
-    <!-- 2: CASO DE ÉXITO -->
-    <div id="slide-2" class="slide" style="background-image: url('https://images.unsplash.com/photo-1517438476312-10d79c67750d?q=80&w=2070&auto=format&fit=crop')">
-        <div class="slide-content text-center">
-            <h1 class="hyrox-font text-6xl md:text-8xl font-black italic uppercase leading-tight">¿Es <span class="text-yellow-400">HYROX</span> un caso de éxito?</h1>
-            <p class="mt-12 text-zinc-500 uppercase tracking-[0.6em] text-sm font-bold">Análisis de Resultados</p>
-        </div>
-    </div>
-
-    <!-- 3: CRONOLOGÍA DINÁMICA -->
-    <div id="slide-3" class="slide" style="background-image: url('https://images.unsplash.com/photo-1574673139082-c3b8d6d5a0f7?q=80&w=1974&auto=format&fit=crop')">
-        <div class="slide-content">
-            <h2 class="hyrox-font text-6xl italic font-black uppercase mb-10 text-center text-yellow-400">Cronología: Hitos Globales</h2>
-            <div class="timeline-grid mb-8">
-                <button class="year-btn" onclick="setTimeline(2017)">2017</button>
-                <button class="year-btn" onclick="setTimeline(2018)">2018</button>
-                <button class="year-btn" onclick="setTimeline(2019)">2019</button>
-                <button class="year-btn" onclick="setTimeline(2020)">2020</button>
-                <button class="year-btn" onclick="setTimeline(2021)">2021</button>
-                <button class="year-btn" onclick="setTimeline(2022)">2022</button>
-                <button class="year-btn" onclick="setTimeline(2023)">2023</button>
-                <button class="year-btn" onclick="setTimeline(2024)">2024</button>
-                <button class="year-btn" onclick="setTimeline(2025)">2025</button>
-                <button class="year-btn" onclick="setTimeline(2026)">2026</button>
-            </div>
-            <div id="timeline-panel" class="glass-panel w-full min-h-[250px] flex items-center justify-center border-t-4 border-yellow-400 bg-black/70">
-                <p class="text-zinc-500 italic text-2xl uppercase tracking-widest font-light">Despliegue de Escala Global</p>
+        <!-- 1: GLOBALIZACIÓN -->
+        <div id="slide-1" class="slide" style="background-image: url('https://images.unsplash.com/photo-1517963879433-6ad2b056d712?q=80&w=2070&auto=format&fit=crop')">
+            <div class="slide-content text-center px-4">
+                <h1 class="hyrox-font text-4xl md:text-8xl font-black italic uppercase leading-tight">
+                    ¿Por qué es importante para <span class="text-yellow-400 underline decoration-4">HYROX</span> considerar la globalización?
+                </h1>
+                <p class="mt-8 text-zinc-500 uppercase tracking-[0.4em] text-[10px] md:text-sm font-bold">Debate Abierto</p>
             </div>
         </div>
-    </div>
 
-    <!-- 4: ECOSISTEMA (SWEET SPOT) -->
-    <div id="slide-4" class="slide" style="background-image: url('https://images.unsplash.com/photo-1594911772125-07fc7a2d8d9f?q=80&w=2070&auto=format&fit=crop')">
-        <div class="slide-content">
-            <h2 class="hyrox-font text-5xl italic font-black uppercase mb-4">Ecosistema: Deportes de Participación Masiva</h2>
-            <button class="btn-reveal" onclick="reveal(this)">MOSTRAR EL SWEET SPOT</button>
-            <div class="reveal-content mt-8">
-                <div class="intersection-graph">
-                    <div class="circle-node node-left">ENTRENAMIENTO GIMNASIO (FUNCIONAL)</div>
-                    <div class="circle-node node-center">FITNESS RACING</div>
-                    <div class="circle-node node-right">COMPETICIÓN ATLÉTICA (RESISTENCIA)</div>
+        <!-- 2: CASO DE ÉXITO -->
+        <div id="slide-2" class="slide" style="background-image: url('https://images.unsplash.com/photo-1517438476312-10d79c67750d?q=80&w=2070&auto=format&fit=crop')">
+            <div class="slide-content text-center px-4">
+                <h1 class="hyrox-font text-5xl md:text-8xl font-black italic uppercase leading-tight">¿Es <span class="text-yellow-400">HYROX</span> un caso de éxito?</h1>
+                <p class="mt-8 text-zinc-500 uppercase tracking-[0.4em] text-[10px] md:text-sm font-bold">Análisis de Resultados</p>
+            </div>
+        </div>
+
+        <!-- 3: CRONOLOGÍA DINÁMICA -->
+        <div id="slide-3" class="slide" style="background-image: url('https://images.unsplash.com/photo-1574673139082-c3b8d6d5a0f7?q=80&w=1974&auto=format&fit=crop')">
+            <div class="slide-content">
+                <h2 class="hyrox-font text-4xl md:text-6xl italic font-black uppercase mb-6 text-center text-yellow-400">Hitos Globales</h2>
+                <div class="timeline-grid mb-6">
+                    <button class="year-btn" onclick="setTimeline(2017)">2017</button>
+                    <button class="year-btn" onclick="setTimeline(2018)">2018</button>
+                    <button class="year-btn" onclick="setTimeline(2019)">2019</button>
+                    <button class="year-btn" onclick="setTimeline(2020)">2020</button>
+                    <button class="year-btn" onclick="setTimeline(2021)">2021</button>
+                    <button class="year-btn" onclick="setTimeline(2022)">2022</button>
+                    <button class="year-btn" onclick="setTimeline(2023)">2023</button>
+                    <button class="year-btn" onclick="setTimeline(2024)">2024</button>
+                    <button class="year-btn" onclick="setTimeline(2025)">2025</button>
+                    <button class="year-btn" onclick="setTimeline(2026)">2026</button>
                 </div>
-                <div class="grid grid-cols-2 gap-8 mt-12 max-w-4xl mx-auto">
-                    <div class="glass-panel text-center">
-                        <h4 class="hyrox-font text-3xl text-yellow-400 italic">MERCADO OBJETIVO</h4>
-                        <p class="text-[10px] opacity-70 uppercase font-black mt-2">33 años prom. / Ingresos estables / Perfil Premium</p>
-                    </div>
-                    <div class="glass-panel text-center">
-                        <h4 class="hyrox-font text-3xl text-white italic">DIVERSIDAD</h4>
-                        <p class="text-[10px] opacity-70 uppercase font-black mt-2">Casi 50% Mujeres / Inclusividad Total</p>
-                    </div>
+                <div id="timeline-panel" class="glass-panel min-h-[200px] flex items-center justify-center border-t-4 border-yellow-400 bg-black/70 text-center">
+                    <p class="text-zinc-500 italic text-xl uppercase tracking-widest font-light">Despliegue de Escala Global</p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- 5: ÉXITO REFLEXIÓN -->
-    <div id="slide-5" class="slide" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop')">
-        <div class="slide-content text-center">
-            <h1 class="hyrox-font text-6xl md:text-8xl font-black italic uppercase leading-none">
-                ¿Qué hizo <span class="text-yellow-400">HYROX</span> para tener tanto éxito en tan poco tiempo?
-            </h1>
-            <p class="mt-12 text-zinc-500 uppercase tracking-[0.5em] text-sm font-bold italic underline">Análisis de los Drivers de Crecimiento</p>
-        </div>
-    </div>
-
-    <!-- 6: ESTRUCTURA DE ANÁLISIS -->
-    <div id="slide-6" class="slide" style="background-image: url('https://images.unsplash.com/photo-1590487988256-9ed24133863e?q=80&w=2070&auto=format&fit=crop')">
-        <div class="slide-content">
-            <h2 class="hyrox-font text-5xl italic font-black uppercase mb-4">Estructura de Análisis</h2>
-            <button class="btn-reveal" onclick="reveal(this)">VER PUNTOS CLAVE</button>
-            <div class="reveal-content max-w-4xl w-full">
-                <div class="space-y-3">
-                    <div class="glass-panel p-4 flex justify-between items-center group cursor-pointer hover:bg-yellow-400 transition-all duration-300">
-                        <span class="hyrox-font text-3xl group-hover:text-black italic">01 ESTRATEGIA: ESTANDARIZACIÓN VS ADAPTABILIDAD</span>
-                        <span class="text-yellow-400 group-hover:text-black font-black">→</span>
+        <!-- 4: ECOSISTEMA -->
+        <div id="slide-4" class="slide" style="background-image: url('https://images.unsplash.com/photo-1594911772125-07fc7a2d8d9f?q=80&w=2070&auto=format&fit=crop')">
+            <div class="slide-content">
+                <h2 class="hyrox-font text-3xl md:text-5xl italic font-black uppercase mb-4 text-center">Deportes de Participación Masiva</h2>
+                <button class="btn-reveal" onclick="reveal(this)">MOSTRAR EL SWEET SPOT</button>
+                <div class="reveal-content">
+                    <div class="intersection-graph mb-8">
+                        <div class="circle-node node-left uppercase">ENTRENAMIENTO FUNCIONAL</div>
+                        <div class="circle-node node-center">FITNESS RACING</div>
+                        <div class="circle-node node-right uppercase">RESISTENCIA ATLÉTICA</div>
                     </div>
-                    <div class="glass-panel p-4 flex justify-between items-center group cursor-pointer hover:bg-yellow-400 transition-all">
-                        <span class="hyrox-font text-3xl group-hover:text-black italic">02 EJECUCIÓN LOGÍSTICA: EL ROADSHOW</span>
-                        <span class="text-yellow-400 group-hover:text-black font-black">→</span>
-                    </div>
-                    <div class="glass-panel p-4 flex justify-between items-center group cursor-pointer hover:bg-yellow-400 transition-all">
-                        <span class="hyrox-font text-3xl group-hover:text-black italic">03 ALIANZAS ESTRATÉGICAS</span>
-                        <span class="text-yellow-400 group-hover:text-black font-black">→</span>
-                    </div>
-                    <div class="glass-panel p-4 flex justify-between items-center group cursor-pointer hover:bg-yellow-400 transition-all">
-                        <span class="hyrox-font text-3xl group-hover:text-black italic">04 HYROX 365: RED DE GIMNASIOS</span>
-                        <span class="text-yellow-400 group-hover:text-black font-black">→</span>
-                    </div>
-                    <div class="glass-panel p-4 flex justify-between items-center group cursor-pointer hover:bg-yellow-400 transition-all">
-                        <span class="hyrox-font text-3xl group-hover:text-black italic">05 INGENIERÍA DE LA VIRALIDAD (UGC)</span>
-                        <span class="text-yellow-400 group-hover:text-black font-black">→</span>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="glass-panel text-center">
+                            <h4 class="hyrox-font text-2xl text-yellow-400 italic">MERCADO OBJETIVO</h4>
+                            <p class="text-[9px] md:text-[10px] opacity-70 uppercase font-black mt-1">33 años prom. / Perfil Premium</p>
+                        </div>
+                        <div class="glass-panel text-center">
+                            <h4 class="hyrox-font text-2xl text-white italic">DIVERSIDAD</h4>
+                            <p class="text-[9px] md:text-[10px] opacity-70 uppercase font-black mt-1">50% Mujeres / Inclusividad Total</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- 7: ESTRATEGIA -->
-    <div id="slide-7" class="slide" style="background-image: url('https://images.unsplash.com/photo-1544216717-3bbf52512659?q=80&w=2070&auto=format&fit=crop')">
-        <div class="slide-content">
-            <h2 class="hyrox-font text-5xl italic font-black uppercase mb-4">01 Estrategia: Estandarización vs Adaptabilidad</h2>
-            <button class="btn-reveal" onclick="reveal(this)">REVELAR ESTRATEGIA</button>
-            <div class="reveal-content mt-10">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="glass-panel border-l-4 border-yellow-400">
-                        <h3 class="hyrox-font text-4xl text-yellow-400 mb-4 italic">Estandarización Absoluta</h3>
-                        <p class="text-zinc-300 leading-relaxed text-lg">Un formato inmutable que permite un <span class="text-white font-bold underline">Ranking Mundial Único</span>. La marca no se adapta; el mercado global se ajusta al estándar inmutable de la firma.</p>
+        <!-- 5: REFLEXIÓN ÉXITO -->
+        <div id="slide-5" class="slide" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop')">
+            <div class="slide-content text-center px-4">
+                <h1 class="hyrox-font text-4xl md:text-7xl font-black italic uppercase leading-none">
+                    ¿Qué hizo <span class="text-yellow-400">HYROX</span> para triunfar tan rápido?
+                </h1>
+                <p class="mt-8 text-zinc-500 uppercase tracking-[0.4em] text-[10px] md:text-sm font-bold italic underline">Análisis de los Drivers de Crecimiento</p>
+            </div>
+        </div>
+
+        <!-- 6: ESTRUCTURA -->
+        <div id="slide-6" class="slide" style="background-image: url('https://images.unsplash.com/photo-1590487988256-9ed24133863e?q=80&w=2070&auto=format&fit=crop')">
+            <div class="slide-content">
+                <h2 class="hyrox-font text-4xl md:text-5xl italic font-black uppercase mb-6">Estructura de Análisis</h2>
+                <button class="btn-reveal" onclick="reveal(this)">VER PUNTOS CLAVE</button>
+                <div class="reveal-content space-y-2 w-full max-w-2xl">
+                    <div class="glass-panel p-3 flex justify-between items-center group hover:bg-yellow-400 transition-all">
+                        <span class="hyrox-font text-xl md:text-2xl group-hover:text-black italic uppercase">01 Estrategia: Estandarización</span>
+                        <span class="text-yellow-400 group-hover:text-black">→</span>
                     </div>
-                    <div class="glass-panel">
-                        <h3 class="hyrox-font text-4xl text-white mb-4 italic">Rompimiento de Barreras</h3>
-                        <ul class="text-zinc-400 space-y-4 font-bold uppercase italic text-xs tracking-widest">
-                            <li>Baja complejidad técnica (Adiós Halterofilia)</li>
-                            <li>Inclusividad Radical: Dobles y Relevos</li>
-                            <li>Atmósfera de Festival Masivo</li>
-                            <li>Economic Moat: Ecosistema de Datos</li>
-                        </ul>
+                    <div class="glass-panel p-3 flex justify-between items-center group hover:bg-yellow-400 transition-all">
+                        <span class="hyrox-font text-xl md:text-2xl group-hover:text-black italic uppercase">02 Ejecución Logística</span>
+                        <span class="text-yellow-400 group-hover:text-black">→</span>
+                    </div>
+                    <div class="glass-panel p-3 flex justify-between items-center group hover:bg-yellow-400 transition-all">
+                        <span class="hyrox-font text-xl md:text-2xl group-hover:text-black italic uppercase">03 Alianzas Estratégicas</span>
+                        <span class="text-yellow-400 group-hover:text-black">→</span>
+                    </div>
+                    <div class="glass-panel p-3 flex justify-between items-center group hover:bg-yellow-400 transition-all">
+                        <span class="hyrox-font text-xl md:text-2xl group-hover:text-black italic uppercase">04 Modelo B2B: HYROX 365</span>
+                        <span class="text-yellow-400 group-hover:text-black">→</span>
+                    </div>
+                    <div class="glass-panel p-3 flex justify-between items-center group hover:bg-yellow-400 transition-all">
+                        <span class="hyrox-font text-xl md:text-2xl group-hover:text-black italic uppercase">05 Viralidad (UGC)</span>
+                        <span class="text-yellow-400 group-hover:text-black">→</span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- 8: LOGÍSTICA MÓVIL (HYROAD) -->
-    <div id="slide-8" class="slide" style="background-image: url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=2070&auto=format&fit=crop')">
-        <div class="slide-content">
-            <h2 class="hyrox-font text-5xl italic font-black uppercase mb-4">02 Ejecución Logística: Unidades Móviles</h2>
-            <button class="btn-reveal" onclick="reveal(this)">VER OPERACIÓN</button>
-            <div class="reveal-content mt-10">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div class="glass-panel">
-                        <p class="text-4xl hyrox-font italic mb-6 uppercase">Asset-Light & High Speed</p>
-                        <p class="text-zinc-400 text-lg">6 roadshows globales con 8 camiones cada uno. Transformación de centros de convenciones masivos en arenas de élite en <span class="text-yellow-400 font-bold underline italic">horas</span>.</p>
+        <!-- 7: ESTRATEGIA -->
+        <div id="slide-7" class="slide" style="background-image: url('https://images.unsplash.com/photo-1544216717-3bbf52512659?q=80&w=2070&auto=format&fit=crop')">
+            <div class="slide-content">
+                <h2 class="hyrox-font text-3xl md:text-5xl italic font-black uppercase mb-4">01 Estrategia: Estandarización</h2>
+                <button class="btn-reveal" onclick="reveal(this)">REVELAR ESTRATEGIA</button>
+                <div class="reveal-content mt-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="glass-panel border-l-4 border-yellow-400">
+                            <h3 class="hyrox-font text-2xl text-yellow-400 mb-2 italic">Estandarización Absoluta</h3>
+                            <p class="text-zinc-300 text-xs md:text-sm leading-relaxed">Formato inmutable que permite un <span class="text-white font-bold underline">Ranking Mundial Único</span>. La marca no se adapta; el mercado se ajusta al estándar.</p>
+                        </div>
+                        <div class="glass-panel">
+                            <h3 class="hyrox-font text-2xl text-white mb-2 italic uppercase">Rompimiento de Barreras</h3>
+                            <ul class="text-[9px] md:text-xs text-zinc-400 space-y-2 font-bold uppercase italic tracking-widest">
+                                <li>Baja complejidad técnica</li>
+                                <li>Inclusividad: Dobles y Relevos</li>
+                                <li>Atmósfera de Festival Masivo</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="glass-panel border-t-4 border-yellow-400">
-                        <h4 class="hyrox-font text-2xl uppercase mb-6 italic">Percepción vs Realidad</h4>
-                        <div class="space-y-6">
-                            <div>
-                                <p class="text-[10px] uppercase font-black text-zinc-500 mb-2">Costo Logístico: €200,000</p>
-                                <div class="w-full h-4 bg-zinc-800"><div class="h-full bg-white" style="width: 12%"></div></div>
-                            </div>
-                            <div>
-                                <p class="text-[10px] uppercase font-black text-yellow-400 mb-2">Valor Percibido: €2,000,000</p>
-                                <div class="w-full h-4 bg-zinc-800"><div class="h-full bg-yellow-400" style="width: 90%"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8: LOGÍSTICA -->
+        <div id="slide-8" class="slide" style="background-image: url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=2070&auto=format&fit=crop')">
+            <div class="slide-content">
+                <h2 class="hyrox-font text-3xl md:text-5xl italic font-black uppercase mb-4">02 Logística: Roadshow</h2>
+                <button class="btn-reveal" onclick="reveal(this)">VER OPERACIÓN</button>
+                <div class="reveal-content">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="glass-panel">
+                            <p class="text-2xl hyrox-font italic mb-4 uppercase">Asset-Light & Speed</p>
+                            <p class="text-zinc-400 text-xs md:text-sm leading-relaxed">6 roadshows globales con camiones especializados. Transformación de centros de convenciones en arenas de élite en <span class="text-yellow-400 font-bold underline">pocas horas</span>.</p>
+                        </div>
+                        <div class="glass-panel border-t-4 border-yellow-400">
+                            <h4 class="hyrox-font text-xl uppercase mb-4 italic">Percepción vs Realidad</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-[8px] uppercase font-black text-zinc-500 mb-1">Costo Logístico: €200k</p>
+                                    <div class="w-full h-2 bg-zinc-800"><div class="h-full bg-white" style="width: 15%"></div></div>
+                                </div>
+                                <div>
+                                    <p class="text-[8px] uppercase font-black text-yellow-400 mb-1">Valor Percibido: €2M</p>
+                                    <div class="w-full h-2 bg-zinc-800"><div class="h-full bg-yellow-400" style="width: 85%"></div></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- 9: ALIANZAS ESTRATÉGICAS (LOGOS + PERFORMANCE) -->
-    <div id="slide-9" class="slide" style="background-image: url('https://images.unsplash.com/photo-1517438322307-e67111335449?q=80&w=2071&auto=format&fit=crop')">
-        <div class="slide-content">
-            <h2 class="hyrox-font text-6xl italic font-black uppercase mb-4 text-center">03 Alianzas Estratégicas</h2>
-            <button class="btn-reveal" onclick="reveal(this)">MOSTRAR SOCIOS GLOBALES</button>
-            <div class="reveal-content mt-10">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <div class="glass-panel">
-                        <div class="brand-logo logo-infront mb-6">Infront</div>
-                        <h3 class="hyrox-font text-3xl text-yellow-400 italic mb-2 uppercase">Infront Sports & Media</h3>
-                        <p class="text-zinc-400 text-sm font-bold uppercase mb-4 italic">Wanda Sports Group</p>
-                        <p class="text-zinc-300 italic">Gestión de derechos de TV y patrocinios globales (Know-how de FIFA e IRONMAN).</p>
-                    </div>
-                    <div class="flex flex-col gap-3">
-                        <div class="flex gap-3">
-                            <div class="brand-logo logo-puma flex-1">PUMA</div>
-                            <div class="brand-logo logo-redbull flex-1">RED BULL</div>
+        <!-- 9: ALIANZAS -->
+        <div id="slide-9" class="slide" style="background-image: url('https://images.unsplash.com/photo-1517438322307-e67111335449?q=80&w=2071&auto=format&fit=crop')">
+            <div class="slide-content text-center">
+                <h2 class="hyrox-font text-3xl md:text-6xl italic font-black uppercase mb-4">03 Alianzas Estratégicas</h2>
+                <button class="btn-reveal" onclick="reveal(this)">MOSTRAR SOCIOS</button>
+                <div class="reveal-content mt-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="glass-panel text-left">
+                            <div class="brand-logo logo-infront mb-4">Infront</div>
+                            <h3 class="hyrox-font text-xl text-yellow-400 italic mb-1 uppercase">Wanda Sports Group</h3>
+                            <p class="text-zinc-400 text-[10px] leading-relaxed italic">Gestión de derechos de TV y patrocinios globales (Know-how de FIFA e IRONMAN).</p>
                         </div>
-                        <div class="flex gap-3">
-                            <div class="brand-logo logo-concept flex-1">Concept2</div>
-                            <div class="brand-logo bg-black text-white border border-zinc-700 flex-1">SPORTOGRAF</div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="brand-logo logo-puma">PUMA</div>
+                            <div class="brand-logo logo-redbull">RED BULL</div>
+                            <div class="brand-logo bg-[#cfcfcf]">Concept2</div>
+                            <div class="brand-logo bg-black text-white border border-zinc-700">SPORTOGRAF</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- 10: HYROX 365 -->
-    <div id="slide-10" class="slide" style="background-image: url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=2070&auto=format&fit=crop')">
-        <div class="slide-content">
-            <h2 class="hyrox-font text-6xl italic font-black uppercase mb-4">04 HYROX 365: Red de Gimnasios</h2>
-            <button class="btn-reveal" onclick="reveal(this)">ANALIZAR MODELO B2B</button>
-            <div class="reveal-content text-center mt-12">
-                <p class="text-3xl hyrox-font mb-10 italic text-zinc-300 uppercase italic">"Gimnasios como canales de distribución global"</p>
-                <div class="grid grid-cols-3 gap-8">
-                    <div class="glass-panel py-12 border-b-4 border-yellow-400">
-                        <p class="hyrox-font text-5xl italic text-yellow-400">€90 - €130</p>
-                        <p class="text-[10px] opacity-60 uppercase font-black mt-2 italic">Cuota de Afiliación Mensual</p>
-                    </div>
-                    <div class="glass-panel py-12 border-b-4 border-white">
-                        <p class="hyrox-font text-5xl italic uppercase">WIN-WIN</p>
-                        <p class="text-[10px] opacity-60 uppercase font-black mt-2 italic">Retención Gym | Atletas Hyrox</p>
-                    </div>
-                    <div class="glass-panel py-12 border-b-4 border-yellow-400">
-                        <p class="hyrox-font text-5xl italic text-yellow-400 uppercase">Asset-Light</p>
-                        <p class="text-[10px] opacity-60 uppercase font-black mt-2 italic">Cero Inversión Física Directa</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 11: VIRALIDAD (UGC + SOCIAL) -->
-    <div id="slide-11" class="slide" style="background-image: url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop')">
-        <div class="slide-content">
-            <h2 class="hyrox-font text-6xl italic font-black uppercase mb-4">05 Ingeniería de la Viralidad (UGC)</h2>
-            <button class="btn-reveal" onclick="reveal(this)">DESCUBRIR VIRALIDAD</button>
-            <div class="reveal-content mt-12">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div class="space-y-8">
-                        <div class="glass-panel border-l-8 border-yellow-400">
-                            <h4 class="hyrox-font text-5xl mb-2 italic tracking-tighter">70% ADOPCIÓN</h4>
-                            <p class="text-sm font-bold opacity-60 uppercase italic tracking-tighter">Venta de Fotos Oficiales Sportograf</p>
+        <!-- 10: HYROX 365 -->
+        <div id="slide-10" class="slide" style="background-image: url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=2070&auto=format&fit=crop')">
+            <div class="slide-content">
+                <h2 class="hyrox-font text-3xl md:text-6xl italic font-black uppercase mb-4">04 Modelo B2B: Red 365</h2>
+                <button class="btn-reveal" onclick="reveal(this)">ANALIZAR MODELO</button>
+                <div class="reveal-content text-center">
+                    <p class="text-xl md:text-3xl hyrox-font mb-6 italic text-zinc-300 uppercase">"Gimnasios como canales de distribución"</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div class="glass-panel py-6 border-b-4 border-yellow-400">
+                            <p class="hyrox-font text-3xl text-yellow-400">€90-€130</p>
+                            <p class="text-[8px] uppercase font-black mt-1">Cuota Mensual</p>
                         </div>
-                        <p class="text-3xl italic text-zinc-300 hyrox-font uppercase tracking-widest">"Entreno para un <span class="text-yellow-400 underline decoration-4">HYROX</span>"</p>
-                    </div>
-                    <div class="glass-panel bg-zinc-950/80 border-none p-10">
-                        <h4 class="hyrox-font text-3xl italic mb-6 uppercase font-black tracking-tight">Social Amplifier</h4>
-                        <p class="text-zinc-500 mb-8 leading-relaxed text-lg italic">Arenas visuales, Luces Neón, Estética Industrial. El participante se convierte en un embajador global orgánico a través de Social Media.</p>
-                        <div class="flex gap-4">
-                            <div class="w-16 h-1 bg-yellow-400"></div>
-                            <div class="w-16 h-1 bg-zinc-700"></div>
+                        <div class="glass-panel py-6 border-b-4 border-white">
+                            <p class="hyrox-font text-3xl uppercase">WIN-WIN</p>
+                            <p class="text-[8px] uppercase font-black mt-1">Retención de Atletas</p>
+                        </div>
+                        <div class="glass-panel py-6 border-b-4 border-yellow-400">
+                            <p class="hyrox-font text-3xl text-yellow-400 uppercase">LIGHT</p>
+                            <p class="text-[8px] uppercase font-black mt-1">Sin Inversión Física</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- 12: BRISBANE 2032 (STADIUM/CITY VIBE) - IMAGEN NUEVA VERIFICADA -->
-    <div id="slide-12" class="slide" style="background-image: url('https://images.unsplash.com/photo-1510546020578-a35ad9834b3c?q=80&w=2070&auto=format&fit=crop')">
-        <div class="slide-content text-center">
-            <h2 class="hyrox-font text-7xl md:text-9xl italic font-black uppercase mb-4 animate__animated animate__pulse animate__infinite">BRISBANE <span class="text-yellow-400 underline">2032</span></h2>
-            <button class="btn-reveal" onclick="reveal(this)">VISIÓN OLÍMPICA</button>
-            <div class="reveal-content max-w-2xl mx-auto mt-10">
-                <p class="text-3xl hyrox-font italic mb-8 uppercase text-zinc-300 italic font-black">IP Privada vs Bien Público</p>
-                <div class="glass-panel text-left">
-                    <p class="text-zinc-400 text-lg leading-relaxed italic">¿Cómo protege HYROX su identidad si se vuelve deporte olímpico? El dilema entre el control comercial exclusivo y el estatus de Disciplina Mundial Regulada.</p>
+        <!-- 11: VIRALIDAD -->
+        <div id="slide-11" class="slide" style="background-image: url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop')">
+            <div class="slide-content">
+                <h2 class="hyrox-font text-3xl md:text-6xl italic font-black uppercase mb-4 text-center">05 Ingeniería de Viralidad</h2>
+                <button class="btn-reveal" onclick="reveal(this)">DESCUBRIR VIRALIDAD</button>
+                <div class="reveal-content mt-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div class="space-y-4">
+                            <div class="glass-panel border-l-8 border-yellow-400">
+                                <h4 class="hyrox-font text-3xl mb-1 italic">70% ADOPCIÓN</h4>
+                                <p class="text-[9px] font-bold opacity-60 uppercase italic">Venta de Fotos Sportograf</p>
+                            </div>
+                            <p class="text-2xl italic text-zinc-300 hyrox-font uppercase">"Entreno para un <span class="text-yellow-400 underline decoration-4">HYROX</span>"</p>
+                        </div>
+                        <div class="glass-panel bg-zinc-950/80 p-6">
+                            <h4 class="hyrox-font text-xl italic mb-3 uppercase font-black tracking-tight">Social Amplifier</h4>
+                            <p class="text-zinc-500 leading-relaxed text-xs italic">Arenas visuales, Neón, Estética Industrial. El participante es embajador orgánico en redes sociales.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- 13: TAKEAWAYS -->
-    <div id="slide-13" class="slide" style="background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2070&auto=format&fit=crop')">
-        <div class="slide-content">
-            <h2 class="hyrox-font text-8xl italic font-black uppercase mb-20 text-yellow-400 underline decoration-8">Global Takeaways</h2>
-            <div class="grid grid-cols-3 gap-8 w-full">
-                <div class="glass-panel text-center group hover:bg-yellow-400 transition-all duration-300 cursor-pointer">
-                    <h3 class="hyrox-font text-4xl mb-4 italic group-hover:text-black">ESTANDARIZACIÓN</h3>
-                    <p class="text-[10px] opacity-60 uppercase font-black tracking-widest group-hover:text-black">Escalabilidad de Producto</p>
-                </div>
-                <div class="glass-panel text-center group hover:bg-yellow-400 transition-all duration-300 cursor-pointer">
-                    <h3 class="hyrox-font text-4xl mb-4 italic group-hover:text-black">ASSET-LIGHT</h3>
-                    <p class="text-[10px] opacity-60 uppercase font-black tracking-widest group-hover:text-black">Crecimiento vía Partners</p>
-                </div>
-                <div class="glass-panel text-center group hover:bg-yellow-400 transition-all duration-300 cursor-pointer">
-                    <h3 class="hyrox-font text-4xl mb-4 italic group-hover:text-black">VIRALIDAD</h3>
-                    <p class="text-[10px] opacity-50 uppercase font-black tracking-widest group-hover:text-black">Social Proof como Activo</p>
+        <!-- 12: BRISBANE 2032 -->
+        <div id="slide-12" class="slide" style="background-image: url('https://images.unsplash.com/photo-1510546020578-a35ad9834b3c?q=80&w=2070&auto=format&fit=crop')">
+            <div class="slide-content text-center">
+                <h2 class="hyrox-font text-6xl md:text-9xl italic font-black uppercase mb-4 animate__animated animate__pulse animate__infinite">BRISBANE <span class="text-yellow-400 underline">2032</span></h2>
+                <button class="btn-reveal" onclick="reveal(this)">VISIÓN OLÍMPICA</button>
+                <div class="reveal-content max-w-xl mx-auto">
+                    <p class="text-xl md:text-3xl hyrox-font italic mb-4 uppercase text-zinc-300 font-black">IP Privada vs Bien Público</p>
+                    <div class="glass-panel text-left">
+                        <p class="text-zinc-400 text-xs md:text-sm leading-relaxed italic">¿Cómo protege HYROX su identidad si se vuelve olímpico? El dilema entre el control comercial exclusivo y el estatus de Disciplina Mundial Regulada.</p>
+                    </div>
                 </div>
             </div>
-            <div class="mt-24 text-zinc-600 font-bold tracking-[0.4em] text-[10px] uppercase italic">Mayo 2026 • Universidad Panamericana</div>
         </div>
+
+        <!-- 13: TAKEAWAYS -->
+        <div id="slide-13" class="slide" style="background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2070&auto=format&fit=crop')">
+            <div class="slide-content text-center">
+                <h2 class="hyrox-font text-5xl md:text-8xl italic font-black uppercase mb-12 text-yellow-400 underline decoration-4">Global Takeaways</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+                    <div class="glass-panel text-center group hover:bg-yellow-400 transition-all duration-300">
+                        <h3 class="hyrox-font text-2xl mb-2 italic group-hover:text-black">ESTANDARIZACIÓN</h3>
+                        <p class="text-[8px] opacity-60 uppercase font-black group-hover:text-black">Escalabilidad de Producto</p>
+                    </div>
+                    <div class="glass-panel text-center group hover:bg-yellow-400 transition-all duration-300">
+                        <h3 class="hyrox-font text-2xl mb-2 italic group-hover:text-black">ASSET-LIGHT</h3>
+                        <p class="text-[8px] opacity-60 uppercase font-black group-hover:text-black">Crecimiento vía Partners</p>
+                    </div>
+                    <div class="glass-panel text-center group hover:bg-yellow-400 transition-all duration-300">
+                        <h3 class="hyrox-font text-2xl mb-2 italic group-hover:text-black">VIRALIDAD</h3>
+                        <p class="text-[8px] opacity-60 uppercase font-black group-hover:text-black">Social Proof como Activo</p>
+                    </div>
+                </div>
+                <div class="mt-12 text-zinc-600 font-bold tracking-[0.4em] text-[8px] uppercase italic">Mayo 2026 • Universidad Panamericana</div>
+            </div>
+        </div>
+
     </div>
 
     <script>
         const timelineData = {
-            2017: { e: "Piloto", p: 1, a: "Concepto" },
+            2017: { e: "Piloto", p: 1, a: "100" },
             2018: { e: 5, p: 2, a: "2,711" },
-            2019: { e: 12, p: 3, a: "~3,000" },
-            2020: { e: 4, p: 2, a: "3,793" },
-            2021: { e: 16, p: 4, a: "8,343" },
-            2022: { e: 45, p: 16, a: "90,000" },
-            2023: { e: 65, p: "11-16", a: "175,000" },
-            2024: { e: "80+", p: 30, a: "650,000" },
+            2019: { e: 12, p: 3, a: "~3k" },
+            2020: { e: 4, p: 2, a: "3.7k" },
+            2021: { e: 16, p: 4, a: "8.3k" },
+            2022: { e: 45, p: 16, a: "90k" },
+            2023: { e: 65, p: "16", a: "175k" },
+            2024: { e: "80+", p: 30, a: "650k" },
             2025: { e: "85+", p: 31, a: "800k+" },
             2026: { e: "100+", p: "35+", a: "1.2M+" }
         };
 
         let currentIdx = 0;
-        const total = 13;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
 
         function reveal(btn) {
-            const content = btn.nextElementSibling;
-            content.style.display = 'block';
+            btn.nextElementSibling.style.display = 'block';
             btn.style.display = 'none';
         }
 
         function showSlide(idx) {
-            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
-            document.getElementById(`slide-${idx}`).classList.add('active');
+            slides.forEach(s => s.classList.remove('active'));
+            slides[idx].classList.add('active');
             
+            // Reset de revelaciones
             document.querySelectorAll('.reveal-content').forEach(c => c.style.display = 'none');
-            document.querySelectorAll('.btn-reveal').forEach(b => b.style.display = 'block');
+            document.querySelectorAll('.btn-reveal').forEach(b => b.style.display = 'inline-block');
         }
 
-        function nextSlide() { if (currentIdx < total) { currentIdx++; showSlide(currentIdx); } }
+        function nextSlide() { if (currentIdx < totalSlides - 1) { currentIdx++; showSlide(currentIdx); } }
         function prevSlide() { if (currentIdx > 0) { currentIdx--; showSlide(currentIdx); } }
 
         function setTimeline(year) {
@@ -543,30 +549,37 @@
             });
 
             panel.innerHTML = `
-                <div class="grid grid-cols-3 gap-16 animate__animated animate__fadeInUp">
-                    <div class="text-center">
-                        <p class="hyrox-font text-7xl text-yellow-400 italic leading-none">${d.e}</p>
-                        <p class="text-[10px] uppercase font-black tracking-widest text-zinc-500 mt-2">Ciudades / Eventos</p>
+                <div class="grid grid-cols-3 gap-4 md:gap-16 text-center animate__animated animate__fadeInUp">
+                    <div>
+                        <p class="hyrox-font text-4xl md:text-7xl text-yellow-400 italic">${d.e}</p>
+                        <p class="text-[8px] uppercase font-black tracking-widest text-zinc-500">Eventos</p>
                     </div>
-                    <div class="text-center">
-                        <p class="hyrox-font text-7xl text-white italic leading-none">${d.p}</p>
-                        <p class="text-[10px] uppercase font-black tracking-widest text-zinc-500 mt-2">Países</p>
+                    <div>
+                        <p class="hyrox-font text-4xl md:text-7xl text-white italic">${d.p}</p>
+                        <p class="text-[8px] uppercase font-black tracking-widest text-zinc-500">Países</p>
                     </div>
-                    <div class="text-center">
-                        <p class="hyrox-font text-7xl text-yellow-400 italic leading-none">${d.a}</p>
-                        <p class="text-[10px] uppercase font-black tracking-widest text-zinc-500 mt-2">Atletas Totales</p>
+                    <div>
+                        <p class="hyrox-font text-4xl md:text-7xl text-yellow-400 italic">${d.a}</p>
+                        <p class="text-[8px] uppercase font-black tracking-widest text-zinc-500">Atletas</p>
                     </div>
-                </div>
-            `;
+                </div>`;
         }
 
+        // Teclado
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight') nextSlide();
             if (e.key === 'ArrowLeft') prevSlide();
-            if (e.key === 'Enter') {
-                const activeSlide = document.querySelector('.slide.active');
-                const btn = activeSlide.querySelector('.btn-reveal');
-                if (btn && btn.style.display !== 'none') btn.click();
+        });
+
+        // Swipe
+        let xDown = null;
+        document.addEventListener('touchstart', e => xDown = e.touches[0].clientX);
+        document.addEventListener('touchmove', e => {
+            if (!xDown) return;
+            let xDiff = xDown - e.touches[0].clientX;
+            if (Math.abs(xDiff) > 50) {
+                if (xDiff > 0) nextSlide(); else prevSlide();
+                xDown = null;
             }
         });
     </script>
